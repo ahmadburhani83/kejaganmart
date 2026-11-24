@@ -1,17 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-
-// Inisialisasi Cloudflare R2 Client (S3 Compatible API)
-const r2 = new S3Client({
-  region: 'auto',
-  endpoint: process.env.R2_ACCOUNT_ID
-    ? `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`
-    : 'https://placeholder.r2.cloudflarestorage.com',
-  credentials: {
-    accessKeyId: process.env.R2_ACCESS_KEY_ID || 'placeholder',
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || 'placeholder',
-  },
-});
+import cloudinary from '@/lib/cloudinary';
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,33 +11,37 @@ export async function POST(req: NextRequest) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const objectKey = `products/${Date.now()}-${sanitizedName}`;
 
-    if (process.env.R2_ACCOUNT_ID && process.env.R2_BUCKET_NAME) {
-      await r2.send(
-        new PutObjectCommand({
-          Bucket: process.env.R2_BUCKET_NAME,
-          Key: objectKey,
-          Body: buffer,
-          ContentType: file.type || 'image/webp',
-          CacheControl: 'public, max-age=31536000, immutable', // Cache 1 tahun di Edge CDN
-        })
-      );
-    }
-
-    const publicBaseUrl = process.env.NEXT_PUBLIC_R2_PUBLIC_URL || 'https://cdn.kejagan.desa.id';
-    const finalUrl = `${publicBaseUrl}/${objectKey}`;
+    // Upload gambar ke Cloudinary (Gratis 25GB/bulan, tanpa kartu kredit)
+    const uploadResult = await new Promise<{ secure_url: string; public_id: string }>(
+      (resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            folder: 'kejagan-mart/products',
+            format: 'webp',
+            transformation: [{ quality: 'auto:good' }, { fetch_format: 'auto' }],
+          },
+          (error, result) => {
+            if (error || !result) {
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          }
+        );
+        uploadStream.end(buffer);
+      }
+    );
 
     return NextResponse.json({
       success: true,
-      url: finalUrl,
-      key: objectKey,
+      url: uploadResult.secure_url,
+      publicId: uploadResult.public_id,
     });
   } catch (error) {
-    console.error('Gagal mengunggah foto ke Cloudflare R2:', error);
+    console.error('Gagal mengunggah foto ke Cloudinary:', error);
     return NextResponse.json(
-      { error: 'Gagal mengunggah gambar produk ke penyimpanan cloud.' },
+      { error: 'Gagal mengunggah gambar produk ke Cloudinary.' },
       { status: 500 }
     );
   }

@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Kejagan Mart - Marketplace Khusus Se-Desa Kejagan',
-  description: 'Belanja kebutuhan pokok dan hasil bumi langsung dari tetangga se-desa Kejagan. COD di rumah atau ambil di toko. Cepat, aman, terverifikasi KYC, hemat kuota.',
+  description: 'Belanja kebutuhan pokok dan hasil panen langsung dari tetangga se-desa Kejagan. COD di rumah atau ambil di toko. Segar, aman, terverifikasi KYC, cepat dan hemat kuota.',
 };
 
 export default function RootLayout({
@@ -12,8 +12,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className="h-full antialiased dark">
-      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950">
+    <html lang="id" className="h-full antialiased bg-slate-50 text-slate-900">
+      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 selection:bg-emerald-500 selection:text-white">
         {children}
       </body>
     </html>

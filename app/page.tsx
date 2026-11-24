@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ShoppingCart, Search, MapPin, Truck, Star, ShieldCheck, CheckCircle2, Store } from 'lucide-react';
+import { ShoppingCart, Search, MapPin, Truck, Star, LogIn, Store, ShieldCheck } from 'lucide-react';
 
 interface Product {
   id: number;
@@ -71,35 +71,48 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex-1 flex flex-col min-h-screen">
-      {/* TOP HEADER */}
-      <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-4 py-3">
+    <div className="flex-1 flex flex-col min-h-screen bg-slate-50 text-slate-900">
+      {/* TOP HEADER (LIGHT THEME - HIJAU DESA) */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-emerald-100 shadow-xs px-4 py-3">
         <div className="max-w-4xl mx-auto flex items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-1.5">
               <span className="text-xl">🏪</span>
-              <h1 className="text-base sm:text-lg font-black text-white tracking-tight">Kejagan Mart</h1>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+              <h1 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">Kejagan Mart</h1>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-200">
                 Se-Desa
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
-              <MapPin className="w-3 h-3 text-emerald-400" />
+            <p className="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
+              <MapPin className="w-3 h-3 text-emerald-600" />
               Desa Kejagan, Kec. Tulangan, Sidoarjo
             </p>
           </div>
 
-          <button
-            onClick={() => setIsCartOpen(true)}
-            className="relative p-2.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-200 transition"
-          >
-            <ShoppingCart className="w-5 h-5 text-emerald-400" />
-            {cart.length > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-emerald-500 text-slate-950 font-black text-[10px] flex items-center justify-center animate-bounce">
-                {cart.length}
-              </span>
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            {/* LOGIN BUTTON */}
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/90 px-3 py-2 rounded-xl transition shadow-2xs"
+            >
+              <LogIn className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Masuk</span>
+            </Link>
+
+            {/* CART BUTTON */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-sm shadow-emerald-600/20"
+              aria-label="Buka Keranjang Belanja"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              {cart.length > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-amber-500 text-slate-950 font-black text-[10px] flex items-center justify-center shadow">
+                  {cart.length}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* SEARCH BAR */}
@@ -108,10 +121,10 @@ export default function HomePage() {
             <Search className="absolute left-3.5 top-2.5 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Cari beras, sayur, sambal pecel, atau nama toko..."
+              placeholder="Cari beras, sambal pecel, sayur, atau nama warung..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-2 pl-10 pr-4 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+              className="w-full bg-slate-50 border border-slate-200/90 rounded-2xl py-2 pl-10 pr-4 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:bg-white transition"
             />
           </div>
         </div>
@@ -122,10 +135,10 @@ export default function HomePage() {
             <button
               key={dusun}
               onClick={() => setSelectedDusun(dusun)}
-              className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition font-semibold text-[11px] ${
+              className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition font-bold text-[11px] ${
                 selectedDusun === dusun
-                  ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
-                  : 'bg-slate-900 text-slate-400 border border-slate-800 hover:border-slate-700'
+                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/25'
+                  : 'bg-white text-slate-700 border border-slate-200 hover:border-emerald-300'
               }`}
             >
               {dusun}
@@ -136,18 +149,18 @@ export default function HomePage() {
 
       {/* MAIN CONTENT AREA */}
       <main className="flex-1 max-w-4xl w-full mx-auto p-4 space-y-4">
-        {/* BANNER INFO CLOUDFLARE R2 & ZERO EGRESS */}
-        <div className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-cyan-950/40 border border-emerald-500/30 flex items-center justify-between text-xs">
-          <div className="space-y-0.5">
-            <span className="font-extrabold text-white flex items-center gap-1.5">
-              <span>🌾</span> Pasar Digital UMKM & Warga Desa
+        {/* BANNER PROMO DESA & CLOUDINARY */}
+        <div className="p-4 rounded-3xl bg-gradient-to-r from-emerald-50 via-green-50 to-emerald-100/70 border border-emerald-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs">
+          <div className="space-y-1">
+            <span className="font-extrabold text-emerald-900 flex items-center gap-1.5 text-xs sm:text-sm">
+              <span>🌾</span> Pasar Digital UMKM & Warga Desa Kejagan
             </span>
-            <p className="text-[11px] text-slate-400">
-              COD diantar tetangga • Bayar setelah barang tiba • Didukung Cloudflare R2
+            <p className="text-[11px] text-emerald-800">
+              COD diantar tetangga • Bayar setelah barang tiba • Didukung Penyimpanan Cloudinary (Gratis 25GB)
             </p>
           </div>
-          <span className="text-[10px] px-2 py-1 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30 whitespace-nowrap">
-            LCP &lt; 0.8s
+          <span className="self-start sm:self-auto text-[10px] px-2.5 py-1 rounded-xl bg-emerald-600 text-white font-bold whitespace-nowrap shadow-xs">
+            LCP &lt; 0.8s Kilat
           </span>
         </div>
 
@@ -162,10 +175,10 @@ export default function HomePage() {
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`p-2.5 rounded-2xl border transition flex flex-col items-center gap-1 ${
+              className={`p-3 rounded-2xl border transition flex flex-col items-center gap-1 ${
                 selectedCategory === cat.id
-                  ? 'bg-slate-900 border-emerald-500/60 text-white'
-                  : 'bg-slate-900/60 border-slate-800/80 text-slate-400 hover:border-slate-700'
+                  ? 'bg-emerald-50 border-emerald-600 text-emerald-900 shadow-xs font-bold'
+                  : 'bg-white border-slate-200/80 text-slate-600 hover:border-emerald-300 hover:bg-slate-50'
               }`}
             >
               <span className="text-xl">{cat.icon}</span>
@@ -174,15 +187,19 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* SHOPEE-STYLE 2-COLUMN PRODUCT GRID */}
-        <div className="space-y-2">
+        {/* SHOPEE-STYLE 2-COLUMN PRODUCT GRID (LIGHT THEME) */}
+        <div className="space-y-2.5">
           <div className="flex justify-between items-center text-xs">
-            <h2 className="font-bold text-white uppercase tracking-wider text-[11px]">Katalog Produk Desa</h2>
-            <span className="text-emerald-400 font-mono text-[11px]">{filteredProducts.length} Produk</span>
+            <h2 className="font-extrabold text-slate-800 uppercase tracking-wider text-[11px]">
+              Katalog Produk Desa
+            </h2>
+            <span className="text-emerald-700 font-mono font-bold text-[11px]">
+              {filteredProducts.length} Produk
+            </span>
           </div>
 
           {filteredProducts.length === 0 ? (
-            <div className="p-8 text-center bg-slate-900/50 rounded-3xl border border-slate-800 text-slate-400 space-y-2">
+            <div className="p-10 text-center bg-white rounded-3xl border border-slate-200 text-slate-500 space-y-2 shadow-xs">
               <span className="text-3xl">🛒</span>
               <p className="text-xs">Tidak ada produk yang cocok dengan pencarian Anda.</p>
             </div>
@@ -191,44 +208,44 @@ export default function HomePage() {
               {filteredProducts.map((p) => (
                 <div
                   key={p.id}
-                  className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-slate-700 transition group shadow-sm"
+                  className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-emerald-400 hover:shadow-md transition group"
                 >
                   {/* Square Image with Shopee Badges */}
-                  <div className="w-full aspect-square bg-slate-800/60 flex items-center justify-center text-5xl relative border-b border-slate-800">
+                  <div className="w-full aspect-square bg-slate-100 flex items-center justify-center text-5xl relative border-b border-slate-100">
                     <span>{p.icon}</span>
                     <span className="absolute top-2 left-2 px-1.5 py-0.5 rounded bg-amber-500 text-slate-950 text-[9px] font-black uppercase shadow">
                       COD
                     </span>
-                    <span className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/60 backdrop-blur-sm text-amber-300 text-[9px] font-bold flex items-center gap-0.5">
-                      <Star className="w-2.5 h-2.5 fill-amber-300" /> {p.rating}
+                    <span className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-white/90 backdrop-blur-xs text-amber-700 border border-slate-200/60 text-[9px] font-bold flex items-center gap-0.5 shadow-xs">
+                      <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-500" /> {p.rating}
                     </span>
                   </div>
 
                   {/* Card Body */}
                   <div className="p-3 flex-1 flex flex-col justify-between space-y-2">
                     <div>
-                      <h3 className="text-xs font-semibold text-white line-clamp-2 leading-tight">
+                      <h3 className="text-xs font-bold text-slate-800 line-clamp-2 leading-tight group-hover:text-emerald-700 transition">
                         {p.title}
                       </h3>
-                      <p className="text-sm font-extrabold text-emerald-400 mt-1 font-mono">
+                      <p className="text-sm font-black text-emerald-700 mt-1 font-mono">
                         Rp {p.price.toLocaleString('id-ID')}
                       </p>
                     </div>
 
-                    <div className="pt-2 border-t border-slate-800/80 space-y-1 text-[10px]">
-                      <div className="text-cyan-400 font-medium flex items-center gap-1 text-[9px]">
-                        <Truck className="w-3 h-3" />
+                    <div className="pt-2 border-t border-slate-100 space-y-1 text-[10px]">
+                      <div className="text-emerald-700 font-semibold flex items-center gap-1 text-[9px]">
+                        <Truck className="w-3 h-3 text-emerald-600" />
                         <span>COD Se-Desa (Ongkir Pasca-Order)</span>
                       </div>
-                      <div className="flex justify-between items-center text-slate-400 text-[9px]">
-                        <span className="truncate max-w-[85px]">{p.shop}</span>
+                      <div className="flex justify-between items-center text-slate-500 text-[9px]">
+                        <span className="truncate max-w-[85px] font-medium">{p.shop}</span>
                         <span>Terjual {p.sold}+</span>
                       </div>
                     </div>
 
                     <button
                       onClick={() => addToCart(p)}
-                      className="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition flex items-center justify-center gap-1 shadow-md shadow-emerald-600/20"
+                      className="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition flex items-center justify-center gap-1 shadow-sm shadow-emerald-600/20 active:scale-98"
                     >
                       + Keranjang
                     </button>
@@ -242,15 +259,15 @@ export default function HomePage() {
 
       {/* CART MODAL & WHATSAPP CHECKOUT */}
       {isCartOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl p-5 space-y-4 text-xs text-slate-200">
-            <div className="flex justify-between items-center border-b border-slate-800 pb-3">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <ShoppingCart className="w-4 h-4 text-emerald-400" /> Keranjang Belanja
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="w-full max-w-sm bg-white border border-slate-200 rounded-t-3xl sm:rounded-3xl p-5 space-y-4 text-xs text-slate-800 shadow-2xl">
+            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <ShoppingCart className="w-4 h-4 text-emerald-600" /> Keranjang Belanja
               </h3>
               <button
                 onClick={() => setIsCartOpen(false)}
-                className="text-slate-400 hover:text-white text-base"
+                className="text-slate-400 hover:text-slate-700 text-base font-bold p-1"
               >
                 ✕
               </button>
@@ -259,24 +276,24 @@ export default function HomePage() {
             {/* Cart Items List */}
             <div className="space-y-2 max-h-48 overflow-y-auto">
               {cart.length === 0 ? (
-                <p className="text-center text-slate-500 py-6">Keranjang masih kosong.</p>
+                <p className="text-center text-slate-400 py-6">Keranjang masih kosong.</p>
               ) : (
                 cart.map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex justify-between items-center p-2.5 rounded-xl bg-slate-950 border border-slate-800"
+                    className="flex justify-between items-center p-2.5 rounded-xl bg-slate-50 border border-slate-200/80"
                   >
                     <div>
-                      <p className="font-bold text-white line-clamp-1">{item.title}</p>
-                      <p className="text-[10px] text-slate-400">{item.shop} • COD Se-Desa</p>
+                      <p className="font-bold text-slate-800 line-clamp-1">{item.title}</p>
+                      <p className="text-[10px] text-slate-500">{item.shop} • COD Se-Desa</p>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-emerald-400 font-mono">
+                      <span className="font-bold text-emerald-700 font-mono">
                         Rp {item.price.toLocaleString('id-ID')}
                       </span>
                       <button
                         onClick={() => removeFromCart(idx)}
-                        className="text-slate-500 hover:text-red-400"
+                        className="text-slate-400 hover:text-red-500 p-1"
                       >
                         ✕
                       </button>
@@ -287,63 +304,63 @@ export default function HomePage() {
             </div>
 
             {/* Delivery Method Selector */}
-            <div className="space-y-2 pt-2 border-t border-slate-800 text-[11px]">
-              <label className="font-bold text-slate-300">Pilih Metode Pengantaran:</label>
+            <div className="space-y-2 pt-2 border-t border-slate-100 text-[11px]">
+              <label className="font-bold text-slate-700">Pilih Metode Pengantaran:</label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setDeliveryMethod('cod')}
                   className={`p-2.5 rounded-xl border text-left transition flex flex-col ${
                     deliveryMethod === 'cod'
-                      ? 'border-emerald-500/60 bg-emerald-950/30'
-                      : 'border-slate-800 bg-slate-950'
+                      ? 'border-emerald-600 bg-emerald-50 text-emerald-950 font-bold'
+                      : 'border-slate-200 bg-slate-50 text-slate-700'
                   }`}
                 >
-                  <span className="font-bold text-white">Diantar ke Rumah</span>
-                  <span className="text-[10px] text-emerald-400 font-medium">Ongkir Ditetapkan Toko</span>
+                  <span className="font-bold">Diantar ke Rumah</span>
+                  <span className="text-[10px] text-emerald-700 font-semibold">Ongkir Ditetapkan Toko</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setDeliveryMethod('pickup')}
                   className={`p-2.5 rounded-xl border text-left transition flex flex-col ${
                     deliveryMethod === 'pickup'
-                      ? 'border-emerald-500/60 bg-emerald-950/30'
-                      : 'border-slate-800 bg-slate-950'
+                      ? 'border-emerald-600 bg-emerald-50 text-emerald-950 font-bold'
+                      : 'border-slate-200 bg-slate-50 text-slate-700'
                   }`}
                 >
-                  <span className="font-bold text-white">Ambil di Toko</span>
-                  <span className="text-[10px] text-slate-400">Ongkir Rp 0 (Gratis)</span>
+                  <span className="font-bold">Ambil di Toko</span>
+                  <span className="text-[10px] text-slate-500">Ongkir Rp 0 (Gratis)</span>
                 </button>
               </div>
-              <p className="text-[10px] text-slate-400">
-                💡 Ongkir flat per transaksi toko. Penjual menetapkan nominal pasca-order sesuai alamat RT/RW Anda.
+              <p className="text-[10px] text-slate-500">
+                💡 Ongkir flat per pesanan toko. Penjual menetapkan nominal pasca-order sesuai alamat RT/RW Anda.
               </p>
             </div>
 
             {/* Breakdown */}
-            <div className="pt-2 border-t border-slate-800 space-y-1.5">
-              <div className="flex justify-between items-center text-slate-400">
+            <div className="pt-2 border-t border-slate-100 space-y-1.5">
+              <div className="flex justify-between items-center text-slate-600">
                 <span>Subtotal Produk:</span>
-                <span className="text-white font-mono font-bold">
+                <span className="text-slate-900 font-mono font-bold">
                   Rp {subtotal.toLocaleString('id-ID')}
                 </span>
               </div>
-              <div className="flex justify-between items-center text-slate-400">
+              <div className="flex justify-between items-center text-slate-600">
                 <span>Biaya Ongkir Toko:</span>
-                <span className="text-amber-400 font-mono font-semibold">
+                <span className="text-amber-700 font-mono font-semibold">
                   {deliveryMethod === 'cod' ? 'Ditetapkan Toko Pasca-Order' : 'Rp 0 (Gratis)'}
                 </span>
               </div>
-              <div className="border-t border-slate-800 pt-1 flex justify-between items-center text-sm font-bold">
+              <div className="border-t border-slate-100 pt-1 flex justify-between items-center text-sm font-bold">
                 <span>Estimasi Tagihan:</span>
-                <span className="text-emerald-400 font-mono text-base font-extrabold">
+                <span className="text-emerald-700 font-mono text-base font-black">
                   Rp {subtotal.toLocaleString('id-ID')} {deliveryMethod === 'cod' && '(+ Ongkir)'}
                 </span>
               </div>
               <button
                 disabled={cart.length === 0}
                 onClick={handleCheckoutWhatsApp}
-                className="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 mt-2 disabled:opacity-50"
+                className="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 mt-2 disabled:opacity-50"
               >
                 <span>💬</span> Konfirmasi Pesanan ke WhatsApp Toko
               </button>
@@ -352,32 +369,35 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* FOOTER & LEGAL TRIO */}
-      <footer className="border-t border-slate-800 bg-slate-950 px-4 py-8 text-xs text-slate-400">
+      {/* FOOTER & LEGAL TRIO (LIGHT THEME) */}
+      <footer className="border-t border-slate-200 bg-white px-4 py-8 text-xs text-slate-500">
         <div className="max-w-4xl mx-auto space-y-4">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
             <div>
-              <p className="font-bold text-white flex items-center gap-1.5">
+              <p className="font-extrabold text-slate-800 flex items-center gap-1.5">
                 <span>🏪</span> Kejagan Mart
               </p>
               <p className="text-[11px] text-slate-500">
                 Marketplace Kependudukan Khusus Warga Desa Kejagan, Sidoarjo.
               </p>
             </div>
-            <div className="flex flex-wrap gap-4 text-xs font-semibold">
-              <Link href="/privacy" className="hover:text-emerald-400 transition">
+            <div className="flex flex-wrap gap-4 text-xs font-bold text-emerald-800">
+              <Link href="/login" className="hover:text-emerald-950 transition">
+                Masuk / Login
+              </Link>
+              <Link href="/privacy" className="hover:text-emerald-950 transition">
                 Kebijakan Privasi
               </Link>
-              <Link href="/terms" className="hover:text-emerald-400 transition">
+              <Link href="/terms" className="hover:text-emerald-950 transition">
                 Syarat & Ketentuan
               </Link>
-              <Link href="/delete-account" className="hover:text-red-400 transition">
+              <Link href="/delete-account" className="hover:text-red-600 transition">
                 Hapus Akun / Data
               </Link>
             </div>
           </div>
-          <p className="text-[10px] text-slate-600 text-center sm:text-left border-t border-slate-900 pt-3">
-            © 2026 Pemerintah Desa Kejagan. Semua Hak Dilindungi. Didukung oleh Supabase, Cloudflare R2, dan Vercel.
+          <p className="text-[10px] text-slate-400 text-center sm:text-left border-t border-slate-100 pt-3">
+            © 2026 Pemerintah Desa Kejagan. Semua Hak Dilindungi. Didukung oleh Supabase, Cloudinary, dan Vercel.
           </p>
         </div>
       </footer>
