@@ -18,6 +18,12 @@ Sistem ini memfasilitasi transaksi jual-beli sembako, makanan olahan, dan hasil 
 
 ### 1. 🛒 Pembeli (Warga Desa)
 - **Registrasi KYC Kependudukan**: Verifikasi NIK KTP, foto tampak depan rumah, dan swafoto biometrik kedipan mata (*liveness detection*).
+- **Wajib Login Sebelum Pesan Barang**: Memastikan keamanan transaksi antar warga dengan modal dialog autentikasi yang elegan.
+- **Navigasi Bottom Bar (Ikon Saja)**: Akses instan ke Beranda, Kategori, Dusun, Keranjang, dan Akun Profil.
+- **Filter Kategori & Tombol Masuk Berbentuk Ikon Saja**: Antarmuka bersih, ergonomis, dan modern.
+- **Tombol Filter Dusun Interaktif**: Tombol filter dinamis yang memunculkan daftar dusun saat diklik.
+- **Halaman Login Deteksi Peran Otomatis**: Mendeteksi otomatis Pembeli, Penjual, Admin, atau Superadmin tanpa tab terpisah.
+- **Pendaftaran Otomatis (Pembeli & Penjual)**: Warga dapat langsung mendaftar secara instan dengan verifikasi domisili oleh Admin Desa Kejagan.
 - **Katalog Belanja Ala Shopee (Grid 2 Kolom Tema Hijau Terang)**: Tampilan visual modern dengan badge COD, rating bintang ⭐, dan filter dusun dinamis (*Dusun Krajan*, *Dusun Kulon*).
 - **Halaman Login Khusus Warga**: Masuk menggunakan **Nomor WhatsApp + Password** di rute `/login`.
 - **Ongkir Toko Pasca-Order**: Biaya ongkos kirim dihitung flat per transaksi toko (bukan per butir barang) dan ditetapkan langsung oleh penjual setelah pesanan masuk sesuai jarak RT/RW pembeli.
@@ -140,4 +146,4 @@ Aplikasi ini memenuhi standar regulasi perlindungan data pribadi kependudukan Re
 
 ---
 
-© 2026 Pemerintah Desa Kejagan, Kec. Trowulan, Kab. Mojokerto. Dikelola untuk kemandirian ekonomi desa.
+@2026 Ahmad Burhani
