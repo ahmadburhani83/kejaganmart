@@ -85,7 +85,7 @@ export default function HomePage() {
             </div>
             <p className="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
               <MapPin className="w-3 h-3 text-emerald-600" />
-              Desa Kejagan, Kec. Tulangan, Sidoarjo
+              Desa Kejagan, Kec. Trowulan, Mojokerto
             </p>
           </div>
 
@@ -378,7 +378,7 @@ export default function HomePage() {
                 <span>🏪</span> Kejagan Mart
               </p>
               <p className="text-[11px] text-slate-500">
-                Marketplace Kependudukan Khusus Warga Desa Kejagan, Sidoarjo.
+                Marketplace Kependudukan Khusus Warga Desa Kejagan, Mojokerto.
               </p>
             </div>
             <div className="flex flex-wrap gap-4 text-xs font-bold text-emerald-800">

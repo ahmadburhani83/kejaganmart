@@ -76,7 +76,7 @@ export default function LoginPage() {
             <h1 className="text-2xl font-black text-slate-900 tracking-tight">Kejagan Mart</h1>
           </div>
           <p className="text-xs text-slate-600">
-            Marketplace Mandiri Warga Desa Kejagan, Kec. Tulangan, Sidoarjo
+            Marketplace Mandiri Warga Desa Kejagan, Kec. Trowulan, Mojokerto
           </p>
         </div>
 

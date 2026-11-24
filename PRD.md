@@ -200,8 +200,8 @@ Sesuai instruksi khusus sistem, terdapat pemisahan metode masuk (login) yang teg
 - **Master Data Wilayah Desa Dinamis**:
   - Superadmin memiliki formulir khusus untuk mengatur dan mengedit identitas wilayah:
     1. **Nama Desa** (contoh: *Desa Kejagan*)
-    2. **Nama Kecamatan** (contoh: *Kecamatan Tulangan*)
-    3. **Nama Kabupaten** (contoh: *Kabupaten Sidoarjo*)
+    2. **Nama Kecamatan** (contoh: *Kecamatan Trowulan*)
+    3. **Nama Kabupaten** (contoh: *Kabupaten Mojokerto*)
     4. **Nama Provinsi** (contoh: *Jawa Timur*)
 - **Manajemen Master Dusun (CRUD Dusun Dinamis)**:
   - **Tambah Dusun Baru**: Input Nama Dusun (contoh: *Dusun Krajan*, *Dusun Kulon*, *Dusun Lor*) dan keterangan cakupan RT/RW.
@@ -341,8 +341,8 @@ CREATE TYPE payment_method AS ENUM ('cod_cash', 'qris_store');
 CREATE TABLE village_config (
     id SERIAL PRIMARY KEY,
     village_name VARCHAR(100) NOT NULL DEFAULT 'Kejagan',
-    district_name VARCHAR(100) NOT NULL DEFAULT 'Tulangan', -- Kecamatan
-    regency_name VARCHAR(100) NOT NULL DEFAULT 'Sidoarjo', -- Kabupaten
+    district_name VARCHAR(100) NOT NULL DEFAULT 'Trowulan', -- Kecamatan
+    regency_name VARCHAR(100) NOT NULL DEFAULT 'Mojokerto', -- Kabupaten
     province_name VARCHAR(100) NOT NULL DEFAULT 'Jawa Timur',
     admin_contact_wa VARCHAR(20),
     updated_at TIMESTAMPTZ DEFAULT NOW()

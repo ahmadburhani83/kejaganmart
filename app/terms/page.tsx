@@ -33,7 +33,7 @@ export default function TermsPage() {
           <h2 className="text-base font-bold text-slate-900">1. Ruang Lingkup Layanan</h2>
           <p>
             Kejagan Mart adalah platform lokapasar (marketplace) mikro yang memfasilitasi transaksi jual-beli barang,
-            makanan, sembako, dan hasil panen antar warga yang berdomisili di Desa Kejagan, Kecamatan Tulangan, Kabupaten Sidoarjo.
+            makanan, sembako, dan hasil panen antar warga yang berdomisili di Desa Kejagan, Kecamatan Trowulan, Kabupaten Mojokerto.
           </p>
         </section>
 
@@ -73,7 +73,7 @@ export default function TermsPage() {
 
         <section className="space-y-2 text-xs text-slate-500 border-t border-slate-100 pt-4">
           <p>
-            Pemerintah Desa Kejagan • Kantor Kepala Desa Kejagan, Kec. Tulangan, Kab. Sidoarjo, Jawa Timur.
+            Pemerintah Desa Kejagan • Kantor Kepala Desa Kejagan, Kec. Trowulan, Kab. Mojokerto, Jawa Timur.
           </p>
         </section>
       </div>

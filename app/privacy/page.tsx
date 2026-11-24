@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-base font-bold text-slate-900">1. Pendahuluan</h2>
           <p>
             Selamat datang di <strong>Kejagan Mart</strong>, platform marketplace mikro khusus lingkungan warga Desa Kejagan,
-            Kecamatan Tulangan, Kabupaten Sidoarjo. Kami berkomitmen penuh untuk melindungi privasi dan integritas data
+            Kecamatan Trowulan, Kabupaten Mojokerto. Kami berkomitmen penuh untuk melindungi privasi dan integritas data
             pribadi seluruh warga desa sesuai Undang-Undang Perlindungan Data Pribadi Republik Indonesia (UU PDP No. 27/2022).
           </p>
         </section>
@@ -85,7 +85,7 @@ export default function PrivacyPolicyPage() {
 
         <section className="space-y-2 text-xs text-slate-500 border-t border-slate-100 pt-4">
           <p>
-            Pemerintah Desa Kejagan • Kantor Kepala Desa Kejagan, Kec. Tulangan, Kab. Sidoarjo, Jawa Timur.
+            Pemerintah Desa Kejagan • Kantor Kepala Desa Kejagan, Kec. Trowulan, Kab. Mojokerto, Jawa Timur.
           </p>
         </section>
       </div>

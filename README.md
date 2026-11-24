@@ -8,7 +8,7 @@
 [![Capacitor Android](https://img.shields.io/badge/Capacitor-v7_Android_APK-119eff?logo=capacitor)](https://capacitorjs.com)
 [![License](https://img.shields.io/badge/License-MIT-emerald)](LICENSE)
 
-**Kejagan Mart** adalah platform lokapasar (marketplace) mikro digital dengan tema segar **Hijau Desa** yang dirancang khusus untuk perputaran ekonomi warga di lingkungan **Desa Kejagan, Kecamatan Tulangan, Kabupaten Sidoarjo, Jawa Timur**. 
+**Kejagan Mart** adalah platform lokapasar (marketplace) mikro digital dengan tema segar **Hijau Desa** yang dirancang khusus untuk perputaran ekonomi warga di lingkungan **Desa Kejagan, Kecamatan Trowulan, Kabupaten Mojokerto, Jawa Timur**. 
 
 Sistem ini memfasilitasi transaksi jual-beli sembako, makanan olahan, dan hasil tani langsung antar tetangga desa dengan sistem pembayaran tunai di tempat (**COD**) atau scan **QRIS Toko** saat serah terima barang.
 
@@ -140,4 +140,4 @@ Aplikasi ini memenuhi standar regulasi perlindungan data pribadi kependudukan Re
 
 ---
 
-© 2026 Pemerintah Desa Kejagan, Kec. Tulangan, Kab. Sidoarjo. Dikelola untuk kemandirian ekonomi desa.
+© 2026 Pemerintah Desa Kejagan, Kec. Trowulan, Kab. Mojokerto. Dikelola untuk kemandirian ekonomi desa.

@@ -14,8 +14,8 @@ CREATE TYPE payment_method AS ENUM ('cod_cash', 'qris_store');
 CREATE TABLE IF NOT EXISTS village_config (
     id SERIAL PRIMARY KEY,
     village_name VARCHAR(100) NOT NULL DEFAULT 'Desa Kejagan',
-    district_name VARCHAR(100) NOT NULL DEFAULT 'Tulangan',
-    regency_name VARCHAR(100) NOT NULL DEFAULT 'Sidoarjo',
+    district_name VARCHAR(100) NOT NULL DEFAULT 'Trowulan',
+    regency_name VARCHAR(100) NOT NULL DEFAULT 'Mojokerto',
     province_name VARCHAR(100) NOT NULL DEFAULT 'Jawa Timur',
     admin_contact_wa VARCHAR(20) NOT NULL DEFAULT '6281234567890',
     updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS village_config (
 
 -- Inisialisasi data desa pertama kali
 INSERT INTO village_config (village_name, district_name, regency_name, province_name, admin_contact_wa)
-VALUES ('Desa Kejagan', 'Tulangan', 'Sidoarjo', 'Jawa Timur', '6281234567890')
+VALUES ('Desa Kejagan', 'Trowulan', 'Mojokerto', 'Jawa Timur', '6281234567890')
 ON CONFLICT DO NOTHING;
 
 -- 3. DUSUNS MASTER TABLE (CRUD Dinamis Superadmin)
