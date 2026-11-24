@@ -173,24 +173,25 @@ Panduan ini disusun praktis sesuai dengan kebiasaan dan pengetahuan pengguna:
    - `NEXT_PUBLIC_SUPABASE_URL` = `URL_SUPABASE_ANDA`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` = `ANON_KEY_SUPABASE_ANDA`
    - `SUPABASE_SERVICE_ROLE_KEY` = `SERVICE_ROLE_KEY_ANDA` (rahasia untuk endpoint admin)
-   - `R2_ACCOUNT_ID` = `ACCOUNT_ID_CLOUDFLARE_ANDA`
-   - `R2_ACCESS_KEY_ID` = `ACCESS_KEY_R2_ANDA`
-   - `R2_SECRET_ACCESS_KEY` = `SECRET_KEY_R2_ANDA`
-   - `R2_BUCKET_NAME` = `kejagan-mart-products`
-   - `NEXT_PUBLIC_R2_PUBLIC_URL` = `https://cdn.kejagan.desa.id` (atau URL `pub-xxx.r2.dev`)
+   - `CLOUDINARY_CLOUD_NAME` = `CLOUD_NAME_ANDA`
+   - `CLOUDINARY_API_KEY` = `API_KEY_ANDA`
+   - `CLOUDINARY_API_SECRET` = `API_SECRET_ANDA`
 4. Klik **Deploy**. Dalam waktu $< 2\text{ menit}$, website desa sudah online dengan domain `kejagan-mart.vercel.app` (dan siap dipasang domain desa kustom seperti `kejagan.desa.id`).
 
-### Langkah D: Setup Cloudflare R2 (Penyimpanan Foto Barang Cepat & Bebas Biaya Bandwidth)
-Cloudflare R2 adalah solusi penyimpanan objek yang kompatibel dengan S3, memberikan **10 GB penyimpanan gratis** dan **100% Bebas Biaya Bandwidth Keluar (Zero Egress Fee)**:
-1. Masuk ke dashboard [dash.cloudflare.com](https://dash.cloudflare.com) (buat akun gratis jika belum punya).
-2. Di sidebar, klik **R2 Object Storage** ➔ klik **Create bucket**.
-3. Beri nama bucket: `kejagan-mart-products` (pilih lokasi: *Automatic* atau *APAC*).
-4. Klik tab **Settings** pada bucket tersebut:
-   - Di bagian **Public Access**, Anda bisa mengaktifkan **R2.dev subdomain** (contoh: `https://pub-xxxxxx.r2.dev`) atau hubungkan **Custom Domain** (contoh: `https://cdn.kejagan.desa.id`).
-5. Buat kredensial akses API:
-   - Di halaman utama R2, klik **Manage R2 API Tokens** di sebelah kanan.
-   - Klik **Create API Token**, pilih izin **Object Read & Write**, dan tentukan bucket `kejagan-mart-products`.
-   - Salin: `Account ID`, `Access Key ID`, dan `Secret Access Key` ke Environment Variables di Vercel dan file `.env.local`.
+### Langkah D: Setup Cloudinary (Penyimpanan Foto Barang Cepat & Gratis 25GB Tanpa Kartu Kredit)
+Cloudinary menyediakan **25 GB kuota media gratis per bulan** tanpa meminta kartu kredit sama sekali:
+1. Buka [cloudinary.com](https://cloudinary.com) dan klik **Sign Up for Free** (Login/Daftar dengan Google atau Email).
+2. Di halaman Dashboard Cloudinary, Anda langsung melihat:
+   - **Cloud Name**
+   - **API Key**
+   - **API Secret**
+3. Salin ketiga nilai tersebut ke Environment Variables di Vercel dan file `.env.local`:
+   ```env
+   CLOUDINARY_CLOUD_NAME=nama_cloud_anda
+   CLOUDINARY_API_KEY=api_key_anda
+   CLOUDINARY_API_SECRET=api_secret_anda
+   ```
+4. Selesai! Foto produk jualan otomatis dioptimasi (`f_auto, q_auto`) ke WebP dan disajikan secara instan lewat CDN global Cloudinary.
 
 ---
 

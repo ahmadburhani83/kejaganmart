@@ -249,16 +249,16 @@ Untuk memastikan sistem tidak mudah dibobol dan data kependudukan warga Desa Kej
 
 ### 5.8 Mesin Performa Kilat & Hemat Kuota Internet Desa (Data-Saver Engine)
 Dirancang khusus agar aplikasi dapat dibuka secepat kilat (LCP $< 0.8\text{ s}$), sangat ringan di ponsel spek hemat, dan tidak menghabiskan kuota internet warga:
-1. **Integrasi Cloudflare R2 Object Storage (Zero Egress Bandwidth Fee)**:
-   - Seluruh foto produk dagangan, foto profil toko, dan gambar QRIS disimpan di **Cloudflare R2 Object Storage** (Bucket: `kejagan-mart-media`).
-   - **Keunggulan Utama**: Cloudflare R2 menggratiskan 100% biaya bandwidth keluar (*Zero Egress Fee*) dan memberikan kuota gratis 10 GB per bulan. Ratusan ribu foto produk yang dilihat warga setiap hari tidak akan pernah membebani biaya server desa.
-   - Terhubung langsung dengan jaringan Cloudflare Edge CDN (titik server di Jakarta & Surabaya), memastikan foto produk termuat dalam waktu $< 50\text{ ms}$.
+1. **Integrasi Cloudinary Media Storage (100% Gratis 25GB/Bulan Tanpa Kartu Kredit)**:
+   - Seluruh foto produk dagangan, foto profil toko, dan gambar QRIS disimpan di **Cloudinary**.
+   - **Keunggulan Utama**: Cloudinary menyediakan paket gratis 25 GB/bulan tanpa memerlukan kartu kredit. Fitur optimasi bawaan (`f_auto, q_auto`) memastikan foto selalu dikirim dalam format WebP/AVIF teringan ke HP pembeli.
+   - Terhubung langsung dengan CDN global berlatensi rendah di Indonesia, memastikan foto produk termuat dalam waktu $< 50\text{ ms}$.
 2. **Kompresi Foto Otomatis Sisi Klien (Client-Side Canvas Downscaling)**:
    - Foto kamera HP warga yang berukuran asli 5MB hingga 10MB **tidak langsung di-upload**.
    - Sistem secara otomatis memperkecil dimensi gambar (maks 800x800px persegi ala Shopee) dan mengonversinya ke format WebP berkualitas 80% langsung di memori HP warga menggunakan HTML5 Canvas.
-   - Ukuran file menyusut 98% dari $\approx 5.000\text{ KB}$ menjadi hanya $\approx 50\text{ - }70\text{ KB}$! Proses upload ke Cloudflare R2 menjadi instan bahkan pada jaringan 3G/4G desa yang tidak stabil.
-3. **Next.js 16 Server Components (Zero-JS Bloat)**:
-   - Menggunakan arsitektur React Server Components (RSC). Komponen tampilan katalog diproses di server Vercel sehingga browser HP warga hanya menerima HTML & CSS ringan tanpa harus menjalankan bundle JavaScript berat.
+   - Ukuran file menyusut 98% dari $\approx 5.000\text{ KB}$ menjadi hanya $\approx 50\text{ - }70\text{ KB}$! Proses upload ke Cloudinary menjadi instan bahkan pada jaringan 3G/4G desa yang tidak stabil.
+3. **Next.js 16 Server Components (Zero-JS Bloat & Light Green Theme)**:
+   - Menggunakan arsitektur React Server Components (RSC) dengan tema terang bernuansa hijau desa. Komponen tampilan katalog diproses di server Vercel sehingga browser HP warga hanya menerima HTML & CSS ringan tanpa harus menjalankan bundle JavaScript berat.
    - Ponsel dengan RAM 2GB-3GB tetap berjalan mulus tanpa patah-patah (*lag*).
 4. **PWA Offline-First & Service Worker Caching**:
    - Seluruh aset antarmuka (ikon, tema, kerangka desain) disimpan di cache lokal ponsel warga via Service Worker (*stale-while-revalidate*).
@@ -275,17 +275,17 @@ Dirancang khusus agar aplikasi dapat dibuka secepat kilat (LCP $< 0.8\text{ s}$)
 ```mermaid
 flowchart TB
     subgraph ClientLayer["🖥️ Frontend & Mobile Layer"]
-        WebClient["Next.js 16 (React 19, Tailwind v4, PWA)"]
+        WebClient["Next.js 16 (React 19, Tailwind v4, Light Green Theme, PWA)"]
         AndroidApp["Android APK Wrapper (Capacitor / TWA)"]
     end
 
     subgraph HostingLayer["☁️ Cloud Platform (Vercel)"]
         VercelEdge["Vercel Edge Network / Serverless Functions"]
-        NextAPIs["Next.js Route Handlers (/api/upload-r2, /api/otp, /api/kyc)"]
+        NextAPIs["Next.js Route Handlers (/api/upload-product, /api/otp, /api/kyc)"]
     end
 
     subgraph StorageLayer["🗄️ Media & Data Storage"]
-        CloudflareR2["☁️ Cloudflare R2 (Foto Produk & Toko - 10GB Free, Zero Egress CDN)"]
+        CloudinaryCDN["☁️ Cloudinary (Foto Produk & Toko - 25GB Free, Tanpa Kartu Kredit)"]
         SupaStorage["🔒 Supabase Storage (Private Encrypted KYC Documents AES-256)"]
     end
 
@@ -305,9 +305,9 @@ flowchart TB
     VercelEdge --> NextAPIs
     NextAPIs --> SupaDB
     NextAPIs --> SupaStorage
-    NextAPIs --> CloudflareR2
+    NextAPIs --> CloudinaryCDN
     NextAPIs --> SupaAuth
-    WebClient -->|Load Cepat CDN| CloudflareR2
+    WebClient -->|Load Cepat CDN| CloudinaryCDN
     WebClient --> WADirect
     GitHub -->|Auto Deploy on push| VercelEdge
 ```
@@ -316,10 +316,10 @@ flowchart TB
 
 | Komponen | Teknologi | Alasan Pemilihan |
 |---|---|---|
-| **Frontend Web** | Next.js 16+ App Router (React 19.2+) | SSR cepat, SEO optimal, performa tinggi dengan Turbopack, didukung penuh oleh Vercel. |
-| **Styling & UI** | Tailwind CSS v4 + Lucide Icons | Desain bersih, modern (gaya Linear/Stripe/Apple), responsif di layar ponsel hemat memori. |
+| **Frontend Web** | Next.js 16+ App Router (React 19.2+) | SSR cepat, SEO optimal, performa tinggi dengan Turbopack, didukung penuh oleh Vercel. Tema terang hijau desa. |
+| **Styling & UI** | Tailwind CSS v4 + Lucide Icons | Desain bersih, modern (gaya Shopee / Linear), responsif di layar ponsel hemat memori. |
 | **Backend & Database** | Supabase (PostgreSQL 16+) | Database relasional tangguh, native Row Level Security (RLS), Auth bawaan, dan audit log desa. |
-| **Penyimpanan Foto Barang (Media)** | **Cloudflare R2 Object Storage** | **100% Bebas Biaya Bandwidth (Zero Egress Fee)**, 10 GB storage gratis, CDN global super cepat di Indonesia, reload foto produk $< 50\text{ ms}$. |
+| **Penyimpanan Foto Barang (Media)** | **Cloudinary Media Storage** | **100% Gratis 25 GB/bulan Tanpa Kartu Kredit**, kompresi otomatis WebP/AVIF on-the-fly, CDN global super cepat di Indonesia. |
 | **Penyimpanan Dokumen KYC Warga** | Supabase Private Storage (AES-256) | Foto KTP dan selfie warga diisolasi ketat dengan Signed URLs sementara 5 menit demi privasi hukum UU PDP. |
 | **Integrasi WhatsApp** | Direct WhatsApp Deep-Link (`wa.me`) via HP Admin & Toko | **Tanpa Gateway Berbayar**. 100% Gratis selamanya, langsung memicu aplikasi WhatsApp di HP Admin (untuk kirim OTP) dan HP Pembeli/Penjual (untuk konfirmasi pesanan). |
 | **Android APK** | Capacitor v7 / Trusted Web Activity (TWA) | Mengonversi Next.js menjadi APK Android ringan ($< 15\text{ MB}$) tanpa perlu menulis ulang dua codebase terpisah. |
